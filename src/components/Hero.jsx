@@ -1,9 +1,23 @@
+import { useRef } from 'react';
+import { ScrollParallax } from 'react-just-parallax';
 import Section from './Section';
 import Button from './Button';
 import curve from '../assets/hero/curve.png';
 import robot from '../assets/hero/robot.jpg';
 import heroBackground from '../assets/hero/hero-background.jpg';
+import {
+    BackgroundCircles,
+    BottomLine,
+    Gradient,
+} from '../components/design/Hero';
+import { heroIcons } from '../constants';
+import Generating from './Generating';
+import Notification from './Notification';
+import CompanyLogos from './CompanyLogos';
+
 const Hero = () => {
+    const parallaxRef = useRef(null);
+
     return (
         <Section
             className="pt-[12rem] -mt-[5.25rem]"
@@ -12,7 +26,7 @@ const Hero = () => {
             customPaddings
             id="hero"
         >
-            <div className="container relative">
+            <div className="container relative" ref={parallaxRef}>
                 <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
                     <h1 className="h1 mb-6">
                         Explore the Possibilities of&nbsp;AI&nbsp;Chatting with{' '}
@@ -48,8 +62,33 @@ const Hero = () => {
                                     width={1024}
                                     height={490}
                                 />
+                                <ScrollParallax isAbsolutelyPositioned>
+                                    <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
+                                </ScrollParallax>
+
+                                <ScrollParallax isAbsolutelyPositioned>
+                                    <ul className="hidden absolute -left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl xl:flex">
+                                        {heroIcons.map((icon, index) => (
+                                            <li className="p-5" key={index}>
+                                                <img
+                                                    src={icon}
+                                                    width={24}
+                                                    height={25}
+                                                    alt="icon"
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </ScrollParallax>
+                                <ScrollParallax isAbsolutelyPositioned>
+                                    <Notification
+                                        className="hidden absolute -right-[5.5rem] bottom-[11rem] w-[18rem] xl:flex"
+                                        title="Code generation"
+                                    />
+                                </ScrollParallax>
                             </div>
                         </div>
+                        <Gradient />
                     </div>
                     <div className="absolute -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%]">
                         <img
@@ -60,8 +99,12 @@ const Hero = () => {
                             height={1800}
                         />
                     </div>
+                    <BackgroundCircles />
                 </div>
+                <CompanyLogos className="hidden relative z-10 mt-20 lg:block" />
             </div>
+
+            <BottomLine />
         </Section>
     );
 };
