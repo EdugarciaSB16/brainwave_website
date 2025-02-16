@@ -7,7 +7,7 @@ import Button from './Button';
 import MenuSvg from '../assets/svg/MenuSvg';
 import { HamburgerMenu } from './design/Header';
 const Header = () => {
-    const { pathname } = useLocation();
+    const pathname = useLocation();
     const [openNavigation, setOpenNavigation] = useState(false);
 
     const toggleNavigation = () => {
@@ -21,7 +21,7 @@ const Header = () => {
     };
 
     const handleClick = () => {
-        if (openNavigation) return;
+        if (!openNavigation) return;
         enablePageScroll();
         setOpenNavigation(false);
     };
@@ -50,7 +50,7 @@ const Header = () => {
                         {navigation.map((item) => (
                             <a
                                 key={item.id}
-                                href={item.href}
+                                href={item.url}
                                 onClick={handleClick}
                                 className={`block relative font-code text-2xl uppercase cursor-pointer text-n-1 transition-colors hover:text-color-1 ${
                                     item.onlyMobile ? 'lg:hidden' : ''
